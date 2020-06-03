@@ -1,3 +1,5 @@
+require "json"
+
 class Command
   def initialize(command)
     @command = command
@@ -5,6 +7,16 @@ class Command
 
   def run
     raise "Unsupported operation"
+  end
+end
+
+class OpenCommand < Command
+  def initialize(file)
+    super("open")
+    @file = file
+  end
+
+  def run
   end
 end
 
@@ -16,16 +28,14 @@ class NewCommand < Command
   end
 
   def run
-    file = File.new(name + ".dnd", "w")
-  end
-end
+    # initial data
+    data = Hash.new
+    data["type"] = @type
+    data["display"] = @name
 
-class OpenCommand < Command
-  def initialize(file)
-    super("open")
-    @file = file
-  end
-
-  def run
+    # write to output
+    File.open("output/" + @name + ".json", "w") do |file|
+      file.write(JSON.pretty_generate(data))
+    end
   end
 end
