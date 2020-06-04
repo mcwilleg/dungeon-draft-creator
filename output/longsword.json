@@ -3,5 +3,8 @@
   "display": "Longsword",
   "type": "weapon",
   "damage-die": "8",
-  "die-amount": "1"
+  "dice-amount": "1",
+  "attributes": {
+  },
+  "test": "true"
 }

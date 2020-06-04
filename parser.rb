@@ -14,6 +14,9 @@ def parse_command (input_text)
   elsif args[0] == "set" then
     return if args.length < 3
     return SetCommand.new(args[1], args[2])
+  elsif args[0] == "del" then
+    return if args.length < 2
+    return DelCommand.new(args[1])
   elsif args[0] == "save" then
     return SaveCommand.new
   elsif args[0] == "exit" then

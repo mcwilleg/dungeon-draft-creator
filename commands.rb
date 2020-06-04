@@ -71,9 +71,32 @@ class SetCommand < Command
     if current.nil? then
       puts "There is no file open."
     else
-      current[@key] = @value
+      key_args = @key.split('.')
+      subhash = current
+      for arg in key_args do
+        if arg == key_args[-1]
+          if @value.nil? then
+            subhash.delete(arg)
+          else
+            subhash[arg] = @value
+          end
+          break
+        end
+        inspect = subhash[arg]
+        unless inspect.is_a?(Hash) then
+          inspect = Hash.new
+          subhash[arg] = inspect
+        end
+        subhash = inspect
+      end
     end
     return current
+  end
+end
+
+class DelCommand < SetCommand
+  def initialize(key)
+    super(key, nil)
   end
 end
 

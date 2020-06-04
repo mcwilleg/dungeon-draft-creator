@@ -8,7 +8,11 @@ end
 $current = nil
 
 begin
-  print "ddc > "
+  print "ddc "
+  unless $current.nil? then
+    print "(#{$current["name"]}) "
+  end
+  print "> "
   input = gets.chomp
   cmd = parse_command(input)
 
