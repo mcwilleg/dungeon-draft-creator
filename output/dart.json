@@ -1,0 +1,22 @@
+{
+  "name": "dart",
+  "display": "Dart",
+  "weapon": {
+    "damage-die": "4",
+    "dice-amount": "1",
+    "damage-type": "piercing",
+    "type": "simple",
+    "ranged": {
+      "normal": "20",
+      "long": "60"
+    },
+    "properties": {
+      "finesse": "true",
+      "thrown": "ranged"
+    }
+  },
+  "item": {
+    "weight": "0.25",
+    "cost": "0.05"
+  }
+}

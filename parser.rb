@@ -6,7 +6,7 @@ def parse_command (input_text)
   return if args.length < 1
 
   if args[0] == "new" then
-    return if args.length < 3
+    return if args.length < 2
     return NewCommand.new(args[1])
   elsif args[0] == "edit" then
     return if args.length < 2

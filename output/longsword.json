@@ -6,11 +6,12 @@
     "dice-amount": "1",
     "damage-type": "slashing",
     "type": "martial",
-    "reach": "5",
+    "melee": {
+      "reach": "5"
+    },
     "properties": {
       "versatile": "10"
-    },
-    "attack-type": "melee"
+    }
   },
   "item": {
     "weight": "3",
