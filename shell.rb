@@ -5,6 +5,7 @@ puts "Dungeon Draft Creator v1.0"
 unless Dir.exist?("output") then
   Dir.mkdir("output")
 end
+
 $current = nil
 
 begin

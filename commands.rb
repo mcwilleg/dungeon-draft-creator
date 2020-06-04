@@ -11,9 +11,8 @@ class Command
 end
 
 class NewCommand < Command
-  def initialize(type, name)
+  def initialize(name)
     super("new")
-    @type = type
     @name = name
   end
 
@@ -26,8 +25,6 @@ class NewCommand < Command
     # initial data
     data = Hash.new
     data["name"] = @name
-    data["display"] = @name
-    data["type"] = @type
 
     # write to output
     pathname = "output/#{@name}.json"
@@ -142,6 +139,19 @@ class SaveCommand < Command
       File.open(pathname, "w") do |file|
         file.write(JSON.pretty_generate(current))
       end
+    end
+    return current
+  end
+end
+
+class CloseCommand < Command
+  def initialize
+    super("close")
+  end
+
+  def run(current = nil)
+    if current.nil? then
+      puts "There is no file open."
     end
     return nil
   end

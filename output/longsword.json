@@ -1,12 +1,19 @@
 {
   "name": "longsword",
   "display": "Longsword",
-  "type": "weapon",
-  "damage-die": "8",
-  "dice-amount": "1",
-  "attributes": {
+  "weapon": {
+    "damage-die": "8",
+    "dice-amount": "1",
+    "damage-type": "slashing",
+    "type": "martial",
+    "reach": "5",
+    "properties": {
+      "versatile": "10"
+    },
+    "attack-type": "melee"
   },
-  "test": "true",
-  "details": "Proficiency with a longsword allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
-  "damage-type": "slashing"
+  "item": {
+    "weight": "3",
+    "cost": "15"
+  }
 }
