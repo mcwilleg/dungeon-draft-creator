@@ -1,4 +1,7 @@
 {
+  "name": "longsword",
+  "display": "Longsword",
   "type": "weapon",
-  "display": "longsword"
+  "damage-die": "8",
+  "die-amount": "1"
 }
