@@ -11,9 +11,12 @@ def parse_command (input_text)
   elsif args[0] == "edit" then
     return if args.length < 2
     return EditCommand.new(args[1])
+  elsif args[0] == "get" then
+    return if args.length < 2
+    return GetCommand.new(args[1])
   elsif args[0] == "set" then
     return if args.length < 3
-    return SetCommand.new(args[1], args[2])
+    return SetCommand.new(args[1], args[2..-1].join(" "))
   elsif args[0] == "del" then
     return if args.length < 2
     return DelCommand.new(args[1])

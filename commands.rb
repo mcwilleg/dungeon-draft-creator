@@ -60,6 +60,35 @@ class EditCommand < Command
   end
 end
 
+class GetCommand < Command
+  def initialize(key)
+    super("get")
+    @key = key
+  end
+
+  def run(current = nil)
+    if current.nil? then
+      puts "There is no file open."
+    else
+      key_args = @key.split('.')
+      subhash = current
+      for arg in key_args do
+        subhash = subhash[arg]
+        if subhash.nil? then
+          puts "The path #{@key} has no value."
+          break
+        elsif subhash.is_a?(Hash) then
+          next
+        else
+          puts subhash
+          break
+        end
+      end
+    end
+    return current
+  end
+end
+
 class SetCommand < Command
   def initialize(key, value)
     super("set")

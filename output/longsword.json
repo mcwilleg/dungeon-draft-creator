@@ -6,5 +6,7 @@
   "dice-amount": "1",
   "attributes": {
   },
-  "test": "true"
+  "test": "true",
+  "details": "Proficiency with a longsword allows you to add your proficiency bonus to the attack roll for any attack you make with it.",
+  "damage-type": "slashing"
 }
