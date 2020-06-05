@@ -2,11 +2,8 @@ require_relative "parser.rb"
 
 puts "Dungeon Draft Creator v1.0"
 
-unless Dir.exist?("output") then
-  Dir.mkdir("output")
-end
-
 $current = nil
+$current_path = nil
 
 begin
   print "ddc "
@@ -19,6 +16,6 @@ begin
 
   # ignore invalid commands
   unless cmd.nil? then
-    $current = cmd.run($current)
+    $current, $current_path = cmd.run($current, $current_path)
   end
 end until input == "exit"
