@@ -11,6 +11,9 @@ def parse_command (input_text)
   elsif args[0] == "edit" then
     return if args.length < 2
     return EditCommand.new(args[1])
+  elsif args[0] == "path" then
+    return if args.length < 2
+    return PathCommand.new(args[1])
   elsif args[0] == "get" then
     return if args.length < 2
     return GetCommand.new(args[1])

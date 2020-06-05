@@ -5,7 +5,7 @@ class Command
     @command = command
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
     raise "Unsupported operation"
   end
 end
@@ -17,10 +17,10 @@ class NewCommand < Command
     @name = @path[-1]
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
     unless current.nil? then
       puts "Another file is currently open.  Save before creating a new one."
-      return current, current_path
+      return current, file_path, hash_path
     end
 
     # initial data
@@ -47,7 +47,7 @@ class NewCommand < Command
     end
 
     puts "New file opened at #{pathname}"
-    return data, pathname
+    return data, pathname, ""
   end
 end
 
@@ -57,17 +57,41 @@ class EditCommand < Command
     @name = name
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
+    # make sure nothing else is open
+    unless current.nil? then
+      puts "Close your current file before editing another."
+      return current, file_path, hash_path
+    end
+
     # check file exists
     pathname = "output/#{@name}.json"
     unless File.exist?(pathname) and File.file?(pathname) and not File.empty?(pathname) then
       puts "Cannot find file #{pathname}"
-      return nil, nil
+      return nil, nil, ""
     end
 
     # parse to JSON
     data = JSON.parse(File.read(pathname))
-    return data, pathname
+    return data, pathname, ""
+  end
+end
+
+class PathCommand < Command
+  def initialize(path)
+    super("path")
+    @path = path
+  end
+
+  def run(current = nil, file_path = nil, hash_path = "")
+    if current.nil? then
+      puts "There is no file open."
+      return current, file_path, hash_path
+    elsif @path == "." then
+      return current, file_path, ""
+    else
+      return current, file_path, @path
+    end
   end
 end
 
@@ -77,10 +101,13 @@ class GetCommand < Command
     @key = key
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
     if current.nil? then
       puts "There is no file open."
     else
+      unless hash_path.empty? then
+        @key = "#{hash_path}.#{@key}"
+      end
       key_args = @key.split('.')
       subhash = current
       for arg in key_args do
@@ -96,7 +123,7 @@ class GetCommand < Command
         end
       end
     end
-    return current, current_path
+    return current, file_path, hash_path
   end
 end
 
@@ -107,10 +134,13 @@ class SetCommand < Command
     @value = value
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
     if current.nil? then
       puts "There is no file open."
     else
+      unless hash_path.empty? then
+        @key = "#{hash_path}.#{@key}"
+      end
       key_args = @key.split('.')
       subhash = current
       for arg in key_args do
@@ -130,7 +160,7 @@ class SetCommand < Command
         subhash = inspect
       end
     end
-    return current, current_path
+    return current, file_path, hash_path
   end
 end
 
@@ -145,15 +175,15 @@ class SaveCommand < Command
     super("save")
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
     if current.nil? then
       puts "There is no file open."
     else
-      File.open(current_path, "w") do |file|
+      File.open(file_path, "w") do |file|
         file.write(JSON.pretty_generate(current))
       end
     end
-    return current, current_path
+    return current, file_path, hash_path
   end
 end
 
@@ -162,10 +192,10 @@ class CloseCommand < Command
     super("close")
   end
 
-  def run(current = nil, current_path = nil)
+  def run(current = nil, file_path = nil, hash_path = "")
     if current.nil? then
       puts "There is no file open."
     end
-    return nil, nil
+    return nil, nil, ""
   end
 end
