@@ -1,13 +1,13 @@
 require_relative "parser.rb"
 
-puts "Dungeon Draft Creator v1.0"
+puts "JSON Writer"
 
 $current = nil
 $file_path = nil
 $hash_path = ""
 
 begin
-  print "ddc "
+  print "jw "
   unless $current.nil? then
     print "(#{$current["name"]}"
     unless $hash_path.empty? then
@@ -16,7 +16,7 @@ begin
     print ") "
   end
   print "> "
-  
+
   input = gets.chomp
   cmd = parse_command(input)
 
